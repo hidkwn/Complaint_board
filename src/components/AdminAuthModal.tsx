@@ -32,50 +32,48 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl max-w-sm w-full p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-900/60 backdrop-blur-xs animate-fade-in text-zinc-900">
+      <div className="bg-white rounded-lg max-w-sm w-full p-6 shadow-xl border border-zinc-200 space-y-4">
         
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5" />
+            <div className="w-7 h-7 rounded bg-zinc-100 text-zinc-800 flex items-center justify-center">
+              <ShieldCheck className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900">운영팀 관리자 모드</h3>
-              <p className="text-[11px] text-slate-400">공식 답변 및 진행 상태 제어</p>
+              <h3 className="text-sm font-bold text-zinc-900">운영팀 관리자 모드</h3>
+              <p className="text-[10px] text-zinc-400">공식 답변 및 진행 상태 제어</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-7 h-7 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 flex items-center justify-center"
+            className="p-1 text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 rounded"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <p className="text-xs text-slate-600 leading-relaxed">
-          관리자 비밀번호를 입력하시면 관리자 권한이 활성화되어 <strong>공식 답변 작성, 상태 변경(처리중/완료) 및 게시글 관리</strong>가 가능합니다.
+        <p className="text-xs text-zinc-600 leading-relaxed">
+          관리자 PIN을 입력하시면 공식 답변 작성, 상태 변경(처리중/완료) 및 게시글 관리가 활성화됩니다.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div className="space-y-1">
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                <Lock className="w-4 h-4" />
-              </div>
+              <Lock className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="password"
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
-                placeholder="관리자 PIN 입력 (기본: 1234)"
-                className="w-full text-sm pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                placeholder="관리자 PIN (기본값: 1234)"
+                className="w-full text-xs pl-8 pr-3 py-2 rounded border border-zinc-300 bg-white focus:outline-none focus:border-zinc-900"
                 autoFocus
               />
             </div>
             {error && (
               <div className="flex items-center gap-1 text-[11px] text-rose-600 pt-1">
-                <AlertCircle className="w-3.5 h-3.5" />
-                <span>비밀번호가 일치하지 않습니다. (테스트 기본값: 1234)</span>
+                <AlertCircle className="w-3 h-3" />
+                <span>비밀번호가 일치하지 않습니다. (기본값: 1234)</span>
               </div>
             )}
           </div>
@@ -84,15 +82,15 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+              className="px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-100 rounded"
             >
               취소
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl shadow-sm transition-colors"
+              className="px-4 py-1.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-black rounded transition-colors"
             >
-              관리자 모드 활성화
+              관리자 모드 실행
             </button>
           </div>
         </form>
@@ -101,4 +99,3 @@ export const AdminAuthModal: React.FC<AdminAuthModalProps> = ({
     </div>
   );
 };
-
