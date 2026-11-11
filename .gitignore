@@ -30,7 +30,6 @@ Thumbs.db
 
 # Environment variables & secrets (Never push to GitHub)
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 .env.txt
-
