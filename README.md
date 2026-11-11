@@ -63,3 +63,8 @@ where id = (select id from auth.users where email = 'admin@example.com');
 ## 데이터베이스 참고
 
 `supabase/schema.sql`은 재실행할 수 있도록 작성했습니다. 기존 익명 게시판에서 사용하던 `public.comments` 테이블이 있으면 새 댓글 스키마와 충돌하지 않도록 `public.complaint_comments_legacy`로 보존합니다. 기존 민원 테이블과 데이터는 변경하거나 삭제하지 않습니다.
+
+
+##웹 접속
+https://complaint-board-six.vercel.app/
+
