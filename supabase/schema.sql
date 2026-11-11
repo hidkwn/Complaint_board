@@ -405,6 +405,19 @@ drop trigger if exists notify_post_author_on_comment on public.comments;
 create trigger notify_post_author_on_comment after insert on public.comments
 for each row execute function public.notify_post_author_of_comment();
 
+create or replace function public.is_valid_comment_parent(target_parent_id uuid, target_post_id uuid)
+returns boolean language sql stable security definer set search_path = public
+as $$
+  select exists (
+    select 1 from public.comments parent
+    where parent.id = target_parent_id
+      and parent.post_id = target_post_id
+      and parent.parent_id is null
+  );
+$$;
+revoke all on function public.is_valid_comment_parent(uuid, uuid) from PUBLIC, anon, authenticated;
+grant execute on function public.is_valid_comment_parent(uuid, uuid) to authenticated;
+
 create or replace function public.increment_post_view(target_post_id uuid)
 returns void language plpgsql security definer set search_path = public
 as $$
@@ -506,14 +519,7 @@ with check (
   and not is_hidden
   and not is_sample
   and exists (select 1 from public.posts p where p.id = post_id and not p.is_hidden)
-  and (
-    parent_id is null or exists (
-      select 1 from public.comments parent
-      where parent.id = comments.parent_id
-        and parent.post_id = comments.post_id
-        and parent.parent_id is null
-    )
-  )
+  and (parent_id is null or public.is_valid_comment_parent(parent_id, post_id))
 );
 drop policy if exists "Authors edit their comments" on public.comments;
 create policy "Authors edit their comments" on public.comments for update to authenticated
